@@ -5,4 +5,4 @@ Demonstrates how to display a `UICollectionView` within a `UITableViewCell`. Thi
 
 ![Example screenshot](./readmeImage.png)
 
-Check out my tutorial for more info.
+Check out [my tutorial](http://ashfurrow.com/blog/putting-a-uicollectionview-in-a-uitableviewcell) for more info.
