@@ -7,7 +7,6 @@
 //
 
 #import "AFViewController.h"
-#import "AFIndexedCollectionView.h"
 #import "AFTableViewCell.h"
 
 @interface AFViewController ()
@@ -87,7 +86,7 @@
 -(void)tableView:(UITableView *)tableView willDisplayCell:(AFTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [cell setCollectionViewDataSourceDelegate:self index:indexPath.row];
-    NSInteger index = cell.collectionView.index;
+    NSInteger index = cell.collectionView.tag;
     
     CGFloat horizontalOffset = [self.contentOffsetDictionary[[@(index) stringValue]] floatValue];
     [cell.collectionView setContentOffset:CGPointMake(horizontalOffset, 0)];
@@ -102,17 +101,17 @@
 
 #pragma mark - UICollectionViewDataSource Methods
 
--(NSInteger)collectionView:(AFIndexedCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray *collectionViewArray = self.colorArray[collectionView.index];
+    NSArray *collectionViewArray = self.colorArray[collectionView.tag];
     return collectionViewArray.count;
 }
 
--(UICollectionViewCell *)collectionView:(AFIndexedCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
     
-    NSArray *collectionViewArray = self.colorArray[collectionView.index];
+    NSArray *collectionViewArray = self.colorArray[collectionView.tag];
     cell.backgroundColor = collectionViewArray[indexPath.item];
     
     return cell;
@@ -122,12 +121,12 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (![scrollView isKindOfClass:[AFIndexedCollectionView class]]) return;
+    if (![scrollView isKindOfClass:[UICollectionView class]]) return;
     
     CGFloat horizontalOffset = scrollView.contentOffset.x;
     
-    AFIndexedCollectionView *collectionView = (AFIndexedCollectionView *)scrollView;
-    NSInteger index = collectionView.index;
+    UICollectionView *collectionView = (UICollectionView *)scrollView;
+    NSInteger index = collectionView.tag;
     self.contentOffsetDictionary[[@(index) stringValue]] = @(horizontalOffset);
 }
 

@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AFIndexedCollectionView.h"
 
 static NSString *CollectionViewCellIdentifier = @"CollectionViewCellIdentifier";
 
 @interface AFTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) AFIndexedCollectionView *collectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 -(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index;
 
