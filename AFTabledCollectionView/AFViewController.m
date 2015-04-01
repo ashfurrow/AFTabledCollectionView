@@ -64,6 +64,14 @@
 
 #pragma mark - UITableViewDataSource Methods
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [NSString stringWithFormat:@"Section #%d", section+1];
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.colorArray.count;
@@ -85,7 +93,7 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(AFTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [cell setCollectionViewDataSourceDelegate:self index:indexPath.row];
+    [cell setCollectionViewDataSourceDelegate:self indexPath:indexPath];
     NSInteger index = cell.collectionView.tag;
     
     CGFloat horizontalOffset = [self.contentOffsetDictionary[[@(index) stringValue]] floatValue];
@@ -103,7 +111,7 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray *collectionViewArray = self.colorArray[collectionView.tag];
+    NSArray *collectionViewArray = self.colorArray[[(AFIndexedCollectionView *)collectionView indexPath].row];
     return collectionViewArray.count;
 }
 
@@ -111,7 +119,7 @@
 {    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollectionViewCellIdentifier forIndexPath:indexPath];
     
-    NSArray *collectionViewArray = self.colorArray[collectionView.tag];
+    NSArray *collectionViewArray = self.colorArray[[(AFIndexedCollectionView *)collectionView indexPath].row];
     cell.backgroundColor = collectionViewArray[indexPath.item];
     
     return cell;
