@@ -8,12 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+
+@interface AFIndexedCollectionView : UICollectionView
+
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
+@end
+
 static NSString *CollectionViewCellIdentifier = @"CollectionViewCellIdentifier";
 
 @interface AFTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) AFIndexedCollectionView *collectionView;
 
--(void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate index:(NSInteger)index;
+- (void)setCollectionViewDataSourceDelegate:(id<UICollectionViewDataSource, UICollectionViewDelegate>)dataSourceDelegate indexPath:(NSIndexPath *)indexPath;
 
 @end
